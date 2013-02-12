@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import ayamitsu.mobfactory.item.ItemMob;
 import ayamitsu.mobfactory.item.ItemMobTranslator;
-import ayamitsu.mobfactory.machine.BlockMobConveyor;
-import ayamitsu.mobfactory.machine.BlockMobConveyorSlope;
+import ayamitsu.mobfactory.machine.BlockConveyor;
+import ayamitsu.mobfactory.machine.BlockConveyorSlope;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -59,9 +59,9 @@ public final class Loader {
 	}
 
 	public void load(FMLInitializationEvent event) {
-		this.conveyor = new BlockMobConveyor(this.conveyorId, Material.iron).setBlockName("mobfactory.conveyor").setCreativeTab(MobFactory.tabMobFactory);
+		this.conveyor = new BlockConveyor(this.conveyorId, Material.iron).setBlockName("mobfactory.conveyor").setCreativeTab(MobFactory.tabMobFactory);
 		GameRegistry.registerBlock(this.conveyor, "mobfactory.conveyor");
-		this.conveyorSlope = new BlockMobConveyorSlope(this.conveyorSlopeId, Material.iron).setBlockName("mobfactory.conveyorSlope").setCreativeTab(MobFactory.tabMobFactory);
+		this.conveyorSlope = new BlockConveyorSlope(this.conveyorSlopeId, Material.iron).setBlockName("mobfactory.conveyorSlope").setCreativeTab(MobFactory.tabMobFactory);
 		GameRegistry.registerBlock(this.conveyorSlope, "mobfactory.conveyorSlope");
 
 		this.itemMob = new ItemMob(this.itemMobId).setItemName("mobfactory.itemMob").setCreativeTab(MobFactory.tabMobFactory);

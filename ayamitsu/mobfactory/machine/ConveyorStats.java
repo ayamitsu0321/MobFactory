@@ -18,5 +18,5 @@ public enum ConveyorStats {
 	SOUTH_TO_EAST,
 	EAST_TO_NORTH,
 	EAST_TO_WEST,
-	EAST_TO_SOUTH
+	EAST_TO_SOUTH;
 }

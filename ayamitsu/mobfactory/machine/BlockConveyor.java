@@ -11,14 +11,14 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import ayamitsu.mobfactory.Loader;
 
-public class BlockMobConveyor extends Block implements IConveyor {
+public class BlockConveyor extends Block implements IConveyor {
 
-	public BlockMobConveyor(int par1, Material par2Material) {
+	public BlockConveyor(int par1, Material par2Material) {
 		super(par1, par2Material);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public BlockMobConveyor(int par1, int par2, Material par3Material) {
+	public BlockConveyor(int par1, int par2, Material par3Material) {
 		super(par1, par2, par3Material);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
@@ -127,20 +127,16 @@ public class BlockMobConveyor extends Block implements IConveyor {
 	}
 
 	private boolean isRequiredAddVelocityToEntity(Entity entity, World world, int x, int y, int z, boolean working) {
-		ConveyorStats stats = this.getConvayorStats(world, x, y, z);
-
 		if (x != MathHelper.floor_double(entity.posX) || z != MathHelper.floor_double(entity.posZ)) {
-			// see the method of Entity Class, "doBlockCollisions"
-			int minX = MathHelper.floor_double(entity.boundingBox.minX + 0.001D);
-			int minY = MathHelper.floor_double(entity.boundingBox.minY + 0.001D);
-			int minZ = MathHelper.floor_double(entity.boundingBox.minZ + 0.001D);
-			int maxX = MathHelper.floor_double(entity.boundingBox.maxX - 0.001D);
-			int maxY = MathHelper.floor_double(entity.boundingBox.maxY - 0.001D);
-			int maxZ = MathHelper.floor_double(entity.boundingBox.maxZ - 0.001D);
-
+			ConveyorStats stats = this.getConvayorStats(world, x, y, z);
 			int x1 = x;
 			int y1 = y;
 			int z1 = z;
+
+			int blockId;
+			Block block;
+			IConveyor conveyor;
+			ConveyorStats stats1;
 
 			// front
 			switch (stats) {
@@ -158,16 +154,13 @@ public class BlockMobConveyor extends Block implements IConveyor {
 				case NORTH_TO_EAST: x1++; break;
 			}
 
-			Block block = Block.blocksList[world.getBlockId(x1, y1, z1)];
+			if (ConveyorUtils.isConnectedAndSameDirection(world, x, y, z, x1, y1, z1)) {
+				blockId = world.getBlockId(x1, y1, z1);
 
-			if (block instanceof IConveyor) {
-				if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
-					return false;
-				}
+				if (blockId > 0 && Block.blocksList[blockId] instanceof IConveyor) {
+					conveyor = (IConveyor)Block.blocksList[blockId];
 
-				if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
-					if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
-						System.out.println("inside_front:" + x1 + ", " + y1 + ", " + z1);
+					if (!working || conveyor.isActive(world, x1, y1, z1)) {
 						return false;
 					}
 				}
@@ -193,16 +186,13 @@ public class BlockMobConveyor extends Block implements IConveyor {
 				case NORTH_TO_EAST: x1--; break;
 			}
 
-			block = Block.blocksList[world.getBlockId(x1, y1, z1)];
+			if (ConveyorUtils.isConnectedAndSameDirection(world, x1, y1, z1, x, y, z)) {
+				blockId = world.getBlockId(x1, y1, z1);
 
-			if (block instanceof IConveyor) {
-				if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
-					return false;
-				}
+				if (blockId > 0 && Block.blocksList[blockId] instanceof IConveyor) {
+					conveyor = (IConveyor)Block.blocksList[blockId];
 
-				if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
-					if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
-						System.out.println("inside_back:" + x1 + ", " + y1 + ", " + z1);
+					if (!working || conveyor.isActive(world, x1, y1, z1)) {
 						return false;
 					}
 				}
@@ -210,18 +200,177 @@ public class BlockMobConveyor extends Block implements IConveyor {
 		}
 
 		return true;
+
+		/*ConveyorStats stats = this.getConvayorStats(world, x, y, z);
+
+		if (x != MathHelper.floor_double(entity.posX) || z != MathHelper.floor_double(entity.posZ)) {
+			// see the method of Entity Class, "doBlockCollisions"
+			int minX = MathHelper.floor_double(entity.boundingBox.minX + 0.001D);
+			int minY = MathHelper.floor_double(entity.boundingBox.minY + 0.001D);
+			int minZ = MathHelper.floor_double(entity.boundingBox.minZ + 0.001D);
+			int maxX = MathHelper.floor_double(entity.boundingBox.maxX - 0.001D);
+			int maxY = MathHelper.floor_double(entity.boundingBox.maxY - 0.001D);
+			int maxZ = MathHelper.floor_double(entity.boundingBox.maxZ - 0.001D);
+
+			int x1 = x;
+			int y1 = y;
+			int z1 = z;
+			int x2 = x;
+			int y2 = y;
+			int z2 = z;
+
+			// front
+			switch (stats) {
+				case WEST_TO_SOUTH: ;
+				case NORTH_TO_SOUTH: ;
+				case EAST_TO_SOUTH: { z1++; z2--; } break;
+				case SOUTH_TO_WEST: ;
+				case NORTH_TO_WEST: ;
+				case EAST_TO_WEST: { x1--; x2++; } break;
+				case SOUTH_TO_NORTH: ;
+				case WEST_TO_NORTH: ;
+				case EAST_TO_NORTH: { z1--; z2++; } break;
+				case SOUTH_TO_EAST: ;
+				case WEST_TO_EAST: ;
+				case NORTH_TO_EAST: { x1++; x2--; } break;
+			}
+
+			int blockId = world.getBlockId(x1, y1, z1);
+			Block block;
+
+			if (blockId > 0) {
+				block = Block.blocksList[blockId];
+
+				if (block instanceof IConveyor) {
+					if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
+						return false;
+					}
+
+					if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+						if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
+							//System.out.println("inside_front:" + x1 + ", " + y1 + ", " + z1);
+							return false;
+						}
+					}
+				}
+			}
+
+			blockId = world.getBlockId(x2, y2, z2);
+
+			if (blockId > 0) {
+				block = Block.blocksList[blockId];
+
+				if (block instanceof IConveyor) {
+					if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
+						return false;
+					}
+
+					if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+						if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
+							//System.out.println("inside_front:" + x1 + ", " + y1 + ", " + z1);
+							return false;
+						}
+					}
+				}
+			}
+
+			x1 = x;
+			y1 = y;
+			z1 = z;
+			x2 = x;
+			y2 = y - 1;
+			z2 = z;
+
+			// back
+			switch (stats) {
+				case WEST_TO_SOUTH: ;
+				case NORTH_TO_SOUTH: ;
+				case EAST_TO_SOUTH: { z1--; z2++; } break;
+				case SOUTH_TO_WEST: ;
+				case NORTH_TO_WEST: ;
+				case EAST_TO_WEST: { x1++; x2--; } break;
+				case SOUTH_TO_NORTH: ;
+				case WEST_TO_NORTH: ;
+				case EAST_TO_NORTH: { z1++; z2--; } break;
+				case SOUTH_TO_EAST: ;
+				case WEST_TO_EAST: ;
+				case NORTH_TO_EAST: { x1--; x2++; } break;
+			}
+
+			blockId = world.getBlockId(x1, y1, z1);
+
+			if (blockId > 0) {
+				block = Block.blocksList[blockId];
+
+				if (block instanceof IConveyor) {
+					if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
+						return false;
+					}
+
+					if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+						if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
+							//System.out.println("inside_front:" + x1 + ", " + y1 + ", " + z1);
+							return false;
+						}
+					}
+				}
+			}
+
+			blockId = world.getBlockId(x2, y2, z2);
+
+			if (blockId > 0) {
+				block = Block.blocksList[blockId];
+
+				if (block instanceof IConveyor) {
+					if (working && ((IConveyor)block).isActive(world, x1, y1, z1)) {
+						return false;
+					}
+
+					if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+						if (x1 >= minX && x1 <= maxX && y1 >= minY && y1 <= maxY && z1 >= minZ && z1 <= maxZ) {
+							//System.out.println("inside_front:" + x1 + ", " + y1 + ", " + z1);
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		return true;*/
 	}
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+
+	}
+
+	@Override
+	public ConveyorStats getConvayorStats(IBlockAccess blockAccess, int x, int y, int z) {
+		int meta = blockAccess.getBlockMetadata(x, y, z);
+
+		switch (meta & 3) {
+			case 0: return ConveyorStats.NORTH_TO_SOUTH;
+			case 1: return ConveyorStats.EAST_TO_WEST;
+			case 2: return ConveyorStats.SOUTH_TO_NORTH;
+			default: return ConveyorStats.WEST_TO_EAST;
+		}
+	}
+
+	@Override
+	public boolean isActive(IBlockAccess blockAccess, int x, int y, int z) {
+		return true;//blockAccess.getBlockMetadata(x, y, z) > 3;
+	}
+
+	@Override
+	public void addVelocityToEntity(Entity entity, World world, int x, int y, int z) {
 		if (!entity.onGround) {
 			return;
 		}
 
 		// not active state
-		/*if (meta < 4) {
+		if (!this.isActive(world, x, y, z)) {
 			return;
-		}*/
+		}
 
 		if (!this.isRequiredAddVelocityToEntity(entity, world, x, y, z, false)) {
 			return;
@@ -277,22 +426,5 @@ public class BlockMobConveyor extends Block implements IConveyor {
 				}
 			} break;
 		}
-	}
-
-	@Override
-	public ConveyorStats getConvayorStats(IBlockAccess blockAccess, int x, int y, int z) {
-		int meta = blockAccess.getBlockMetadata(x, y, z);
-
-		switch (meta & 3) {
-			case 0: return ConveyorStats.NORTH_TO_SOUTH;
-			case 1: return ConveyorStats.EAST_TO_WEST;
-			case 2: return ConveyorStats.SOUTH_TO_NORTH;
-			default: return ConveyorStats.WEST_TO_EAST;
-		}
-	}
-
-	@Override
-	public boolean isActive(IBlockAccess blockAccess, int x, int y, int z) {
-		return blockAccess.getBlockMetadata(x, y, z) > 3;
 	}
 }

@@ -1,8 +1,15 @@
 package ayamitsu.mobfactory.machine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderConveyorSlope implements ISimpleBlockRenderingHandler {
@@ -21,8 +28,10 @@ public class RenderConveyorSlope implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderBlocks) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		renderBlocks.setRenderBoundsFromBlock(block);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+
+		return true;
 	}
 
 	@Override
