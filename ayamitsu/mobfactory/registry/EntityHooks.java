@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
 
 public class EntityHooks {
 
@@ -14,6 +13,10 @@ public class EntityHooks {
 		handlerList.add(handler);
 	}
 
+	/**
+	 * call on the method "doBlockCollisions" in Entity class
+	 * insert by asm
+	 */
 	public static void doBlockCollisions(Entity entity) {
 		for (IEntityHandler handler : handlerList) {
 			handler.doHandler(entity, HandlerType.DO_BLOCK_COLLISIONS);

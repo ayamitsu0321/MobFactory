@@ -1,17 +1,13 @@
 package ayamitsu.mobfactory.machine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
+/**
+ * TODO: render slope conveyor
+ */
 public class RenderConveyorSlope implements ISimpleBlockRenderingHandler {
 
 	private int renderId;

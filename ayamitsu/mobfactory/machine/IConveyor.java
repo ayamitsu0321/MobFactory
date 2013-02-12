@@ -9,12 +9,21 @@ import net.minecraft.world.World;
  */
 public interface IConveyor {
 
+	/**
+	 * return direction
+	 */
 	ConveyorStats getConvayorStats(IBlockAccess blockAccess, int x, int y, int z);
 
 	boolean isActive(IBlockAccess blockAccess, int x, int y, int z);
 
 	/**
-	 * auto call
+	 * if return true, call addVelocityToEntity
+	 * boundingBoxMinY and onGround is entity's stats
+	 */
+	boolean canAddVelocityToEntity(World world, int x, int y, int z, double boundingBoxMinY, boolean onGround);
+
+	/**
+	 * if canAddVelocityToEntity return true, call this
 	 */
 	void addVelocityToEntity(Entity entity, World world, int x, int y, int z);
 

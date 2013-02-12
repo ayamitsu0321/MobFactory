@@ -102,7 +102,10 @@ public class MobRenderingRegistry {
 		addLocalization("LavaSlime", "MagmaCube");
 	}
 
-	/** implement this and register */
+	/**
+	 * implement this and register
+	 * use that renderer
+	 */
 	public static interface IMobRenderer {
 
 		boolean match(String name);

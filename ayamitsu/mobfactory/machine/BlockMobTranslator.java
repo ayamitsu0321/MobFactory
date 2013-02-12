@@ -3,6 +3,7 @@ package ayamitsu.mobfactory.machine;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
+// TODO:
 public class BlockMobTranslator extends Block {
 
 	public BlockMobTranslator(int par1, Material par2Material) {
