@@ -9,6 +9,7 @@ import ayamitsu.mobfactory.item.ItemMobTranslator;
 import ayamitsu.mobfactory.machine.BlockConveyor;
 import ayamitsu.mobfactory.machine.BlockConveyorCorner;
 import ayamitsu.mobfactory.machine.BlockConveyorSlope;
+import ayamitsu.mobfactory.machine.ItemConveyorCorner;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -68,7 +69,7 @@ public final class Loader {
 		this.conveyorSlope = new BlockConveyorSlope(this.conveyorSlopeId, Material.iron).setBlockName("mobfactory.conveyorSlope").setCreativeTab(MobFactory.tabMobFactory);
 		GameRegistry.registerBlock(this.conveyorSlope, "mobfactory.conveyorSlope");
 		this.conveyorCorner = new BlockConveyorCorner(this.conveyorCornerId, Material.iron).setBlockName("mobfactory.conveyorCorner").setCreativeTab(MobFactory.tabMobFactory);
-		GameRegistry.registerBlock(this.conveyorCorner, "mobfactory.conveyorCorner");
+		GameRegistry.registerBlock(this.conveyorCorner, ItemConveyorCorner.class, "mobfactory.conveyorCorner");
 
 		this.itemMob = new ItemMob(this.itemMobId).setItemName("mobfactory.itemMob").setCreativeTab(MobFactory.tabMobFactory);
 		this.mobTranslator = new ItemMobTranslator(this.mobTranslatorId).setItemName("mobfactory.mobTranslator").setCreativeTab(MobFactory.tabMobFactory);

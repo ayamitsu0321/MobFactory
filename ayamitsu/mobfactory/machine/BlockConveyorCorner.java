@@ -67,7 +67,12 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 		return super.getBlockTextureFromSideAndMetadata(side, meta);
 	}
 
-	@Override
+	/*@Override
+	public int onBlockPlaced(World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ, int meta) {
+		return
+	}*/
+
+	/*@Override
 	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living) {
 		int yaw = this.getDirectionFromEntityLiving(living);
 		// debug
@@ -83,7 +88,7 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 
 	public int getDirectionFromEntityLiving(EntityLiving living) {
 		return MathHelper.floor_double((double)((living.rotationYaw * 4F) / 360F) + 0.5D) & 3;
-	}
+	}*/
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int blockX, int blockY, int blockZ) {
@@ -176,7 +181,7 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 
 		this.setBlockBoundsBasedOnState(world, x, y, z);
 		double boundingBoxMinY = entity.posY - (double)entity.yOffset;
-		return boundingBoxMinY - 0.001D > ((double)y - this.getBlockBoundsMaxY());
+		return boundingBoxMinY - 0.001D < ((double)y + this.getBlockBoundsMaxY());
 	}
 
 	@Override
@@ -186,6 +191,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 
 		switch (this.getConvayorStats(world, x, y, z)) {
 			case NORTH_TO_EAST : {
+				if ((1.0D - varZ) == varX) {
+					if (entity.motionX > 0.21875D) {
+						break;
+					}
+
+					entity.motionX += 0.03125F;
+
+					if (entity.motionX > 0.21875D) {
+						entity.motionX = 0.21875D;
+					}
+
+					break;
+				}
+
 				if ((1.0D - varZ) > varX) {
 					if (entity.motionZ > 0.21875D) {
 						break;
@@ -209,6 +228,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case EAST_TO_SOUTH: {
+				if (varZ == varX) {
+					if (entity.motionZ > 0.21875D) {
+						break;
+					}
+
+					entity.motionZ += 0.03125F;
+
+					if (entity.motionZ > 0.21875D) {
+						entity.motionZ = 0.21875D;
+					}
+
+					break;
+				}
+
 				if (varZ > varX) {
 					if (entity.motionZ > 0.21875D) {
 						break;
@@ -232,6 +265,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case SOUTH_TO_WEST: {
+				if ((1.0D - varZ) == varX) {
+					if (entity.motionX < -0.21875D) {
+						break;
+					}
+
+					entity.motionX -= 0.03125F;
+
+					if (entity.motionX < -0.21875D) {
+						entity.motionX = -0.21875D;
+					}
+
+					break;
+				}
+
 				if ((1.0D - varZ) < varX) {
 					if (entity.motionZ < -0.21875D) {
 						break;
@@ -255,6 +302,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case WEST_TO_NORTH: {
+				if (varZ == varX) {
+					if (entity.motionZ < -0.21875D) {
+						break;
+					}
+
+					entity.motionZ -= 0.03125F;
+
+					if (entity.motionZ < -0.21875D) {
+						entity.motionZ = -0.21875D;
+					}
+
+					break;
+				}
+
 				if (varZ < varX) {
 					if (entity.motionZ < -0.21875D) {
 						break;
@@ -278,6 +339,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case NORTH_TO_WEST: {
+				if (varZ == varX) {
+					if (entity.motionX < -0.21875D) {
+						break;
+					}
+
+					entity.motionX -= 0.03125F;
+
+					if (entity.motionX < -0.21875D) {
+						entity.motionX = -0.21875D;
+					}
+
+					break;
+				}
+
 				if (varZ < varX) {
 					if (entity.motionZ > 0.21875D) {
 						break;
@@ -301,6 +376,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case WEST_TO_SOUTH: {
+				if ((1.0D - varZ) == varX) {
+					if (entity.motionZ > 0.21875D) {
+						break;
+					}
+
+					entity.motionZ += 0.03125F;
+
+					if (entity.motionZ > 0.21875D) {
+						entity.motionZ = 0.21875D;
+					}
+
+					break;
+				}
+
 				if ((1.0D - varZ) < varX) {
 					if (entity.motionZ > 0.21875D) {
 						break;
@@ -324,6 +413,20 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case SOUTH_TO_EAST: {
+				if (varZ == varX) {
+					if (entity.motionX > 0.21875D) {
+						break;
+					}
+
+					entity.motionX += 0.03125F;
+
+					if (entity.motionX > 0.21875D) {
+						entity.motionX = 0.21875D;
+					}
+
+					break;
+				}
+
 				if (varZ > varX) {
 					if (entity.motionZ < -0.21875D) {
 						break;
@@ -347,6 +450,18 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 				}
 			} break;
 			case EAST_TO_NORTH: {
+				if ((1.0D - varZ) == varX) {
+					if (entity.motionZ < -0.21875D) {
+						break;
+					}
+
+					entity.motionZ -= 0.03125F;
+
+					if (entity.motionZ < -0.21875D) {
+						entity.motionZ = -0.21875D;
+					}
+				}
+
 				if ((1.0D - varZ) > varX) {
 					if (entity.motionZ < -0.21875D) {
 						break;

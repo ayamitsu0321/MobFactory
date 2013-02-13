@@ -39,7 +39,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 		Block block;
 		IConveyor conveyor;
 
-		if (!entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+		if (!entity.worldObj.checkChunksExist(minX, minZ, minZ, maxX, maxY, maxZ)) {
 			return;
 		}
 
@@ -48,12 +48,18 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 
 			if (block instanceof IConveyor) {
 				conveyor = (IConveyor)block;
+				System.out.println(conveyor.getConvayorStats(entity.worldObj, blockX, blockY, blockZ));
 
 				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ)) {
+					System.out.println("addVelocity");
 					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ);
 					return;
 				}
 			}
+		}
+
+		if (!entity.worldObj.checkChunksExist(minX, blockY - 1, minZ, maxX, maxY, maxZ)) {
+			return;
 		}
 
 		blockId = entity.worldObj.getBlockId(blockX, blockY - 1, blockZ);

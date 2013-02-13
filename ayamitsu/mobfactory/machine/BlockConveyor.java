@@ -195,6 +195,6 @@ public class BlockConveyor extends Block implements IConveyor {
 
 		this.setBlockBoundsBasedOnState(world, x, y, z);
 		double boundingBoxMinY = entity.posY - (double)entity.yOffset;
-		return boundingBoxMinY - 0.001D > ((double)y - this.getBlockBoundsMaxY());
+		return boundingBoxMinY - 0.001D < ((double)y + this.getBlockBoundsMaxY());
 	}
 }
