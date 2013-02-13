@@ -20,7 +20,7 @@ public interface IConveyor {
 	 * if return true, call addVelocityToEntity
 	 * boundingBoxMinY and onGround is entity's stats
 	 */
-	boolean canAddVelocityToEntity(World world, int x, int y, int z, double boundingBoxMinY, boolean onGround);
+	boolean canAddVelocityToEntity(Entity entity, World world, int x, int y, int z);
 
 	/**
 	 * if canAddVelocityToEntity return true, call this

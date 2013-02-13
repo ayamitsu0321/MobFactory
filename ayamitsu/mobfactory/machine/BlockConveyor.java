@@ -188,12 +188,13 @@ public class BlockConveyor extends Block implements IConveyor {
 	}
 
 	@Override
-	public boolean canAddVelocityToEntity(World world, int x, int y, int z, double boundingBox, boolean onGround) {
-		if (!this.isActive(world, x, y, z) || !onGround) {
+	public boolean canAddVelocityToEntity(Entity entity, World world, int x, int y, int z) {
+		if (!this.isActive(world, x, y, z) || !entity.onGround) {
 			return false;
 		}
 
 		this.setBlockBoundsBasedOnState(world, x, y, z);
-		return boundingBox - 0.001D > ((double)y - this.getBlockBoundsMaxY());
+		double boundingBoxMinY = entity.posY - (double)entity.yOffset;
+		return boundingBoxMinY - 0.001D > ((double)y - this.getBlockBoundsMaxY());
 	}
 }

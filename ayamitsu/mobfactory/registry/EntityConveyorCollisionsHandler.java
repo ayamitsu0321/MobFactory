@@ -49,7 +49,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 			if (block instanceof IConveyor) {
 				conveyor = (IConveyor)block;
 
-				if (conveyor.canAddVelocityToEntity(entity.worldObj, blockX, blockY, blockZ, entity.posY - (double)entity.yOffset, entity.onGround)) {
+				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ)) {
 					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ);
 					return;
 				}
@@ -64,7 +64,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 			if (block instanceof IConveyor) {
 				conveyor = (IConveyor)block;
 
-				if (conveyor.canAddVelocityToEntity(entity.worldObj, blockX, blockY - 1, blockZ, entity.posY - (double)entity.yOffset, entity.onGround)) {
+				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY - 1, blockZ)) {
 					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY - 1, blockZ);
 					return;
 				}
@@ -82,7 +82,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 						if (block instanceof IConveyor) {
 							conveyor = (IConveyor)block;
 
-							if (conveyor.canAddVelocityToEntity(entity.worldObj, x, blockY, z, entity.posY - (double)entity.yOffset, entity.onGround)) {
+							if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, x, blockY, z)) {
 								conveyor.addVelocityToEntity(entity, entity.worldObj, x, blockY, z);
 								return;
 							}
@@ -97,7 +97,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 						if (block instanceof IConveyor) {
 							conveyor = (IConveyor)block;
 
-							if (conveyor.canAddVelocityToEntity(entity.worldObj, x, blockY - 1, z, entity.posY - (double)entity.yOffset, entity.onGround)) {
+							if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, x, blockY - 1, z)) {
 								conveyor.addVelocityToEntity(entity, entity.worldObj, x, blockY - 1, z);
 								return;
 							}

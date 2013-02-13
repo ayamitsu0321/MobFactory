@@ -306,13 +306,14 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 	}
 
 	@Override
-	public boolean canAddVelocityToEntity(World world, int x, int y, int z, double boundingBox, boolean onGround) {
+	public boolean canAddVelocityToEntity(Entity entity, World world, int x, int y, int z) {
 		if (!this.isActive(world, x, y, z)) {
 			return false;
 		}
 
 		this.setBlockBoundsBasedOnState(world, x, y, z);
-		return boundingBox - 0.001D > ((double)y - this.getBlockBoundsMaxY());
+		double boundingBoxMinY = entity.posY - (double)entity.yOffset;;
+		return boundingBoxMinY - 0.001D > ((double)y - this.getBlockBoundsMaxY());
 	}
 
 }
