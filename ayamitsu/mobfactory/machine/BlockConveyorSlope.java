@@ -68,14 +68,24 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living) {
-		int yaw = this.getDirectionFromEntityLiving(living);
-		boolean active = this.isActive(world, blockX, blockY, blockZ);//world.getBlockMetadata(blockX, blockY, blockZ) > 3;
-		world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.blockID, yaw + (active ? 4 : 0));
+	public int onBlockPlaced(World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ, int meta) {
+		// not bottom and top
+		System.out.println("face=" + face + ", hitY=" + hitY);
+		return face != 0 && (face == 1 || (double)hitY <= 0.5D) ? 4 : 0;
+	}
 
-		if (!world.isRemote) {
-			System.out.println(yaw);
-		}
+	@Override
+	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living) {
+		System.out.println("onBlockPlacedBy_before:" + world.getBlockMetadata(blockX, blockY, blockZ));
+
+		int yaw = this.getDirectionFromEntityLiving(living);
+		boolean isUp = this.isUpStats(world, blockX, blockY, blockZ);
+		boolean active = this.isActive(world, blockX, blockY, blockZ);//world.getBlockMetadata(blockX, blockY, blockZ) > 3;
+		world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.blockID, (isUp ? yaw : (yaw + 2) & 3) + (isUp ? 4 : 0) + (active ? 8 : 0));
+
+		//if (!world.isRemote) {
+			System.out.println("onBlockPlacedBy_after:" + world.getBlockMetadata(blockX, blockY, blockZ));
+		//}
 	}
 
 	public int getDirectionFromEntityLiving(EntityLiving living) {
@@ -231,7 +241,11 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 			case 0: return ConveyorStats.NORTH_TO_SOUTH;
 			case 1: return ConveyorStats.EAST_TO_WEST;
 			case 2: return ConveyorStats.SOUTH_TO_NORTH;
-			default: return ConveyorStats.WEST_TO_EAST;
+			case 3: return ConveyorStats.WEST_TO_EAST;
+			case 4: return ConveyorStats.SOUTH_TO_NORTH;
+			case 5: return ConveyorStats.WEST_TO_EAST;
+			case 6: return ConveyorStats.NORTH_TO_SOUTH;
+			default: return ConveyorStats.EAST_TO_WEST;
 		}
 	}
 
@@ -288,7 +302,7 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 
 	@Override
 	public boolean isUpStats(IBlockAccess blockAccess, int x, int y, int z) {
-		return true;//(blockAccess.getBlockMetadata(x, y, z) & 7) > 3;
+		return (blockAccess.getBlockMetadata(x, y, z) & 7) > 3;
 	}
 
 	@Override
