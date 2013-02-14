@@ -21,10 +21,6 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 
 	// if addVelocity, finish execute
 	public static void doConveyorCollisions(Entity entity) {
-		/*if (entity instanceof EntityPlayer) {
-			System.out.println(MathHelper.floor_double(entity.posY - (double)entity.yOffset - 0.001D));
-		}*/
-
 		int minX = MathHelper.floor_double(entity.boundingBox.minX + 0.001D);
 		int minY = MathHelper.floor_double(entity.boundingBox.minY + 0.001D);
 		int minZ = MathHelper.floor_double(entity.boundingBox.minZ + 0.001D);
@@ -48,10 +44,8 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 
 			if (block instanceof IConveyor) {
 				conveyor = (IConveyor)block;
-				System.out.println(conveyor.getConvayorStats(entity.worldObj, blockX, blockY, blockZ));
 
 				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ)) {
-					System.out.println("addVelocity");
 					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ);
 					return;
 				}

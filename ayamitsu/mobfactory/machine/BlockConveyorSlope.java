@@ -96,12 +96,12 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int blockX, int blockY, int blockZ) {
 		switch (this.getConvayorStats(blockAccess, blockX, blockY, blockZ)) {
 			case NORTH_TO_SOUTH: ;
-			case SOUTH_TO_NORTH: this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 1.0F, 1.0F); return;
+			case SOUTH_TO_NORTH: this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 1.375F, 1.0F); return;
 			case WEST_TO_EAST: ;
-			case EAST_TO_WEST: this.setBlockBounds(0.0F, 0.0F, 0.0625F, 1.0F, 1.0F, 0.9375F); return;
+			case EAST_TO_WEST: this.setBlockBounds(0.0F, 0.0F, 0.0625F, 1.0F, 1.375F, 0.9375F); return;
 		}
 
-		this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 1.0F, 1.0F);
+		this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 1.375F, 1.0F);
 	}
 
 	@Override
@@ -312,7 +312,7 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 		}
 
 		this.setBlockBoundsBasedOnState(world, x, y, z);
-		double boundingBoxMinY = entity.posY - (double)entity.yOffset;;
+		double boundingBoxMinY = entity.posY - (double)entity.yOffset;
 		return boundingBoxMinY - 0.001D < ((double)y + this.getBlockBoundsMaxY());
 	}
 

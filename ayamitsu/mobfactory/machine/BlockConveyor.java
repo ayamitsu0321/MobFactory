@@ -101,14 +101,12 @@ public class BlockConveyor extends Block implements IConveyor {
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int blockX, int blockY, int blockZ) {
 		this.setBlockBoundsBasedOnState(world, blockX, blockY, blockZ);
 		return super.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ);
-		//return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double)blockX, (double)blockY, (double)blockZ, (double)blockX + 1.0D, (double)blockY + 0.375D, (double)blockZ + 1.0D);
 	}
 
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int blockX, int blockY, int blockZ) {
 		this.setBlockBoundsBasedOnState(world, blockX, blockY, blockZ);
 		return super.getSelectedBoundingBoxFromPool(world, blockX, blockY, blockZ);
-		//return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double)blockX, (double)blockY, (double)blockZ, (double)blockX + 1.0D, (double)blockY + 0.375D, (double)blockZ + 1.0D);
 	}
 
 	@Override
@@ -135,8 +133,6 @@ public class BlockConveyor extends Block implements IConveyor {
 
 	@Override
 	public void addVelocityToEntity(Entity entity, World world, int x, int y, int z) {
-		//System.out.println("normal:" + x + ", " + y + ", " + z);
-
 		ConveyorStats stats = this.getConvayorStats(world, x, y, z);
 
 		switch (stats) {
