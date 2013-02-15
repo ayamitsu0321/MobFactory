@@ -1,8 +1,13 @@
 package ayamitsu.mobfactory.registry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import ayamitsu.mobfactory.machine.IConveyor;
 import ayamitsu.mobfactory.registry.EntityHooks.HandlerType;
 import ayamitsu.mobfactory.registry.EntityHooks.IEntityHandler;
@@ -22,7 +27,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 	// if addVelocity, finish execute
 	public static void doConveyorCollisions(Entity entity) {
 		int minX = MathHelper.floor_double(entity.boundingBox.minX + 0.001D);
-		int minY = MathHelper.floor_double(entity.boundingBox.minY + 0.001D);
+		int minY = MathHelper.floor_double(entity.posY - (double)entity.yOffset + 0.001D - 1D);
 		int minZ = MathHelper.floor_double(entity.boundingBox.minZ + 0.001D);
 		int maxX = MathHelper.floor_double(entity.boundingBox.maxX - 0.001D);
 		int maxY = MathHelper.floor_double(entity.posY - entity.yOffset - 0.001D);
@@ -31,50 +36,20 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 		int blockX = MathHelper.floor_double(entity.posX);
 		int blockY = MathHelper.floor_double(entity.posY - (double)entity.yOffset - 0.001D);
 		int blockZ = MathHelper.floor_double(entity.posZ);
-		int blockId = entity.worldObj.getBlockId(blockX, blockY, blockZ);
+		int blockId;// = entity.worldObj.getBlockId(blockX, blockY, blockZ);
 		Block block;
 		IConveyor conveyor;
 
-		if (!entity.worldObj.checkChunksExist(minX, minZ, minZ, maxX, maxY, maxZ)) {
+		if (!entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
 			return;
 		}
 
-		if (blockId > 0) {
-			block = Block.blocksList[blockId];
-
-			if (block instanceof IConveyor) {
-				conveyor = (IConveyor)block;
-
-				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ)) {
-					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY, blockZ);
-					return;
-				}
-			}
-		}
-
-		if (!entity.worldObj.checkChunksExist(minX, blockY - 1, minZ, maxX, maxY, maxZ)) {
-			return;
-		}
-
-		blockId = entity.worldObj.getBlockId(blockX, blockY - 1, blockZ);
-
-		if (blockId > 0) {
-			block = Block.blocksList[blockId];
-
-			if (block instanceof IConveyor) {
-				conveyor = (IConveyor)block;
-
-				if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, blockX, blockY - 1, blockZ)) {
-					conveyor.addVelocityToEntity(entity, entity.worldObj, blockX, blockY - 1, blockZ);
-					return;
-				}
-			}
-		}
+		List<Vec3> list = new ArrayList<Vec3>();
 
 		for (int x = minX; x <= maxX; x++) {
 			for (int z = minZ; z <= maxZ; z++) {
-				if (x != blockX || z != blockZ) {
-					blockId = entity.worldObj.getBlockId(x, blockY, z);
+				for (int y = minY; y <= maxY; y++) {
+					blockId = entity.worldObj.getBlockId(x, y, z);
 
 					if (blockId > 0) {
 						block = Block.blocksList[blockId];
@@ -82,29 +57,29 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 						if (block instanceof IConveyor) {
 							conveyor = (IConveyor)block;
 
-							if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, x, blockY, z)) {
-								conveyor.addVelocityToEntity(entity, entity.worldObj, x, blockY, z);
-								return;
-							}
-						}
-					}
-
-					blockId = entity.worldObj.getBlockId(x, blockY - 1, z);
-
-					if (blockId > 0) {
-						block = Block.blocksList[blockId];
-
-						if (block instanceof IConveyor) {
-							conveyor = (IConveyor)block;
-
-							if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, x, blockY - 1, z)) {
-								conveyor.addVelocityToEntity(entity, entity.worldObj, x, blockY - 1, z);
-								return;
+							if (conveyor.canAddVelocityToEntity(entity, entity.worldObj, x, y, z)) {
+								list.add(conveyor.addVelocityToEntity(entity, entity.worldObj, x, y, z));
 							}
 						}
 					}
 				}
 			}
 		}
+
+		if (!list.isEmpty()) {
+			Vec3 vec3Base = entity.worldObj.getWorldVec3Pool().getVecFromPool(0.0D, 0.0D, 0.0D);
+
+			for (Vec3 vec3 : list) {
+				vec3Base = vec3Base.addVector(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+			}
+
+			vec3Base.xCoord *= 1.0D / (double)list.size();
+			vec3Base.yCoord *= 1.0D / (double)list.size();
+			vec3Base.zCoord *= 1.0D / (double)list.size();
+			entity.motionX += vec3Base.xCoord;
+			entity.motionY += vec3Base.yCoord;
+			entity.motionZ += vec3Base.zCoord;
+		}
 	}
+
 }

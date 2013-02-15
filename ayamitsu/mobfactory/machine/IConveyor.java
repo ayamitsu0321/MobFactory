@@ -1,6 +1,7 @@
 package ayamitsu.mobfactory.machine;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -25,6 +26,6 @@ public interface IConveyor {
 	/**
 	 * if canAddVelocityToEntity return true, call this
 	 */
-	void addVelocityToEntity(Entity entity, World world, int x, int y, int z);
+	Vec3 addVelocityToEntity(Entity entity, World world, int x, int y, int z);
 
 }

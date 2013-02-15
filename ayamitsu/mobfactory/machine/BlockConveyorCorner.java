@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -130,196 +131,71 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 	}
 
 	@Override
-	public void addVelocityToEntity(Entity entity, World world, int x, int y, int z) {
-		double varX = Math.abs(entity.posX - (double)x);
-		double varZ = Math.abs(entity.posZ - (double)z);
+	public Vec3 addVelocityToEntity(Entity entity, World world, int x, int y, int z) {
+		Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(0.0D, 0.0D, 0.0D);
+		double varX = (double)((float)Math.abs(entity.posX - (double)x));
+		double varZ = (double)((float)Math.abs(entity.posZ - (double)z));
 
 		switch (this.getConvayorStats(world, x, y, z)) {
 			case NORTH_TO_EAST : {
 				if ((1.0D - varZ) > varX) {
-					if (entity.motionZ > 0.21875D) {
-						break;
-					}
-
-					entity.motionZ += 0.03125F;
-
-					if (entity.motionZ > 0.21875D) {
-						entity.motionZ = 0.21875D;
-					}
+					vec3.zCoord += 0.03125D;
 				} else {
-					if (entity.motionX > 0.21875D) {
-						break;
-					}
-
-					entity.motionX += 0.03125F;
-
-					if (entity.motionX > 0.21875D) {
-						entity.motionX = 0.21875D;
-					}
+					vec3.xCoord += 0.03125D;
 				}
 			} break;
 			case EAST_TO_SOUTH: {
 				if (varZ >= varX) {
-					if (entity.motionZ > 0.21875D) {
-						break;
-					}
-
-					entity.motionZ += 0.03125F;
-
-					if (entity.motionZ > 0.21875D) {
-						entity.motionZ = 0.21875D;
-					}
+					vec3.zCoord += 0.03125D;
 				} else {
-					if (entity.motionX < -0.21875D) {
-						break;
-					}
-
-					entity.motionX -= 0.03125F;
-
-					if (entity.motionX < -0.21875D) {
-						entity.motionX = -0.21875D;
-					}
+					vec3.xCoord -= 0.03125D;
 				}
 			} break;
 			case SOUTH_TO_WEST: {
 				if ((1.0D - varZ) < varX) {
-					if (entity.motionZ < -0.21875D) {
-						break;
-					}
-
-					entity.motionZ -= 0.03125F;
-
-					if (entity.motionZ < -0.21875D) {
-						entity.motionZ = -0.21875D;
-					}
+					vec3.zCoord -= 0.03125D;
 				} else {
-					if (entity.motionX < -0.21875D) {
-						break;
-					}
-
-					entity.motionX -= 0.03125F;
-
-					if (entity.motionX < -0.21875D) {
-						entity.motionX = -0.21875D;
-					}
+					vec3.xCoord -= 0.03125D;
 				}
 			} break;
 			case WEST_TO_NORTH: {
 				if (varZ <= varX) {
-					if (entity.motionZ < -0.21875D) {
-						break;
-					}
-
-					entity.motionZ -= 0.03125F;
-
-					if (entity.motionZ < -0.21875D) {
-						entity.motionZ = -0.21875D;
-					}
+					vec3.zCoord -= 0.03125D;
 				} else {
-					if (entity.motionX > 0.21875D) {
-						break;
-					}
-
-					entity.motionX += 0.03125F;
-
-					if (entity.motionX > 0.21875D) {
-						entity.motionX = 0.21875D;
-					}
+					vec3.xCoord += 0.03125D;
 				}
 			} break;
 			case NORTH_TO_WEST: {
 				if (varZ < varX) {
-					if (entity.motionZ > 0.21875D) {
-						break;
-					}
-
-					entity.motionZ += 0.03125F;
-
-					if (entity.motionZ > 0.21875D) {
-						entity.motionZ = 0.21875D;
-					}
+					vec3.zCoord += 0.03125D;
 				} else {
-					if (entity.motionX < -0.21875D) {
-						break;
-					}
-
-					entity.motionX -= 0.03125F;
-
-					if (entity.motionX < -0.21875D) {
-						entity.motionX = -0.21875D;
-					}
+					vec3.xCoord -= 0.03125D;
 				}
 			} break;
 			case WEST_TO_SOUTH: {
 				if ((1.0D - varZ) <= varX) {
-					if (entity.motionZ > 0.21875D) {
-						break;
-					}
-
-					entity.motionZ += 0.03125F;
-
-					if (entity.motionZ > 0.21875D) {
-						entity.motionZ = 0.21875D;
-					}
+					vec3.zCoord += 0.03125D;
 				} else {
-					if (entity.motionX > 0.21875D) {
-						break;
-					}
-
-					entity.motionX += 0.03125F;
-
-					if (entity.motionX > 0.21875D) {
-						entity.motionX = 0.21875D;
-					}
+					vec3.xCoord += 0.03125D;
 				}
 			} break;
 			case SOUTH_TO_EAST: {
 				if (varZ > varX) {
-					if (entity.motionZ < -0.21875D) {
-						break;
-					}
-
-					entity.motionZ -= 0.03125F;
-
-					if (entity.motionZ < -0.21875D) {
-						entity.motionZ = -0.21875D;
-					}
+					vec3.zCoord -= 0.03125D;
 				} else {
-					if (entity.motionX > 0.21875D) {
-						break;
-					}
-
-					entity.motionX += 0.03125F;
-
-					if (entity.motionX > 0.21875D) {
-						entity.motionX = 0.21875D;
-					}
+					vec3.xCoord += 0.03125D;
 				}
 			} break;
 			case EAST_TO_NORTH: {
 				if ((1.0D - varZ) >= varX) {
-					if (entity.motionZ < -0.21875D) {
-						break;
-					}
-
-					entity.motionZ -= 0.03125F;
-
-					if (entity.motionZ < -0.21875D) {
-						entity.motionZ = -0.21875D;
-					}
+					vec3.zCoord -= 0.03125D;
 				} else {
-					if (entity.motionX < -0.21875D) {
-						break;
-					}
-
-					entity.motionX -= 0.03125F;
-
-					if (entity.motionX < -0.21875D) {
-						entity.motionX = -0.21875D;
-					}
+					vec3.xCoord -= 0.03125D;
 				}
 			} break;
 		}
+
+		return vec3;
 	}
 
 	// not used
