@@ -3,6 +3,9 @@ package ayamitsu.mobfactory.registry;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import ayamitsu.mobfactory.conveyor.EntityConveyorCollisionsHandler;
+import ayamitsu.mobfactory.translator.EntityStepHandler;
+
 import net.minecraft.entity.Entity;
 
 public class EntityHooks {
@@ -27,11 +30,12 @@ public class EntityHooks {
 		void doHandler(Entity entity, HandlerType type);
 	}
 
-	public enum HandlerType {
+	public static enum HandlerType {
 		DO_BLOCK_COLLISIONS
 	}
 
 	static {
 		registerEntityHandler(new EntityConveyorCollisionsHandler());
+		registerEntityHandler(new EntityStepHandler());
 	}
 }

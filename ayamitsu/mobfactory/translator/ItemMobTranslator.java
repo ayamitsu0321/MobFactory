@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.item;
+package ayamitsu.mobfactory.translator;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
@@ -23,19 +23,19 @@ public class ItemMobTranslator extends Item {
 			return false;
 		}
 
-		String name = living.getEntityName();
+		ItemStack mobItem = MobTranslateUtils.translateToItem(living);
 
-		if (name != null) {
-			itemStack.setItemDamage(itemStack.getItemDamage() + 1);//itemStack.damageItem(1, living);
+		if (mobItem != null) {
+			itemStack.setItemDamage(itemStack.getItemDamage() + 1);
 
 			if (!living.worldObj.isRemote) {
-				ItemStack mobItem = new ItemStack(Loader.instance.itemMob.itemID, 1, 0);
-				mobItem.setTagCompound(new NBTTagCompound());
-				mobItem.getTagCompound().setString("MobName", name);
+				living.setDead();
 				living.entityDropItem(mobItem, 0.0F);
 			}
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 }

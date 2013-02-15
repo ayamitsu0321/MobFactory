@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 import ayamitsu.mobfactory.Loader;
 
 public class BlockConveyorSlope extends Block implements IConveyorSlope {
+
+	protected float velocityValue = 0.03125F;
 
 	public BlockConveyorSlope(int par1, Material par2Material) {
 		super(par1, par2Material);
@@ -70,23 +72,15 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 
 	@Override
 	public int onBlockPlaced(World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ, int meta) {
-		// not bottom and top
-		System.out.println("face=" + face + ", hitY=" + hitY);
 		return face != 0 && (face == 1 || (double)hitY <= 0.5D) ? 4 : 0;
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, int blockX, int blockY, int blockZ, EntityLiving living) {
-		System.out.println("onBlockPlacedBy_before:" + world.getBlockMetadata(blockX, blockY, blockZ));
-
 		int yaw = this.getDirectionFromEntityLiving(living);
 		boolean isUp = this.isUpStats(world, blockX, blockY, blockZ);
 		boolean active = this.isActive(world, blockX, blockY, blockZ);//world.getBlockMetadata(blockX, blockY, blockZ) > 3;
 		world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.blockID, (isUp ? yaw : (yaw + 2) & 3) + (isUp ? 4 : 0) + (active ? 8 : 0));
-
-		//if (!world.isRemote) {
-			System.out.println("onBlockPlacedBy_after:" + world.getBlockMetadata(blockX, blockY, blockZ));
-		//}
 	}
 
 	public int getDirectionFromEntityLiving(EntityLiving living) {
@@ -144,9 +138,6 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 				this.setBlockBounds(0.0625F, 0.0F, 1.0F, 0.9375F, 1.375F, 1.0F);
 			} break;
 			case EAST_TO_WEST: {
-				/*this.setBlockBounds(0.0F, 0.0F, 0.0625F, 1.0F, 0.125F, 0.9375F);
-				super.addCollidingBlockToList(world, blockX, blockY, blockZ, aabb, list, entity);*/
-
 				if (up) {
 					for (int i = 0;i < limit; i++) {
 						this.setBlockBounds(0.0F,
@@ -172,9 +163,6 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 				this.setBlockBounds(0.0F, 0.0F, 0.0625F, 1.0F, 1.375F, 0.9275F);
 			} break;
 			case SOUTH_TO_NORTH: {
-				/*this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.125F, 1.0F);
-				super.addCollidingBlockToList(world, blockX, blockY, blockZ, aabb, list, entity);*/
-
 				if (up) {
 					for (int i = 0;i < limit; i++) {
 						this.setBlockBounds(0.0625F,
@@ -200,9 +188,6 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 				this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 1.375F, 1.0F);
 			} break;
 			case WEST_TO_EAST: {
-				/*this.setBlockBounds(0.0F, 0.0F, 0.0625F, 1.0F, 0.125F, 0.9375F);
-				super.addCollidingBlockToList(world, blockX, blockY, blockZ, aabb, list, entity);*/
-
 				if (up) {
 					for (int i = 0;i < limit; i++) {
 						this.setBlockBounds((1.0F / limit * i) - (1.0F / limit),
@@ -263,16 +248,16 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 
 		switch (stats) {
 			case NORTH_TO_SOUTH: {
-				vec3.zCoord += 0.03125D;
+				vec3.zCoord += this.velocityValue;
 			} break;
 			case EAST_TO_WEST: {
-				vec3.xCoord -= 0.03125D;
+				vec3.xCoord -= this.velocityValue;
 			} break;
 			case SOUTH_TO_NORTH: {
-				vec3.zCoord -= 0.03125D;
+				vec3.zCoord -= this.velocityValue;
 			} break;
 			case WEST_TO_EAST: {
-				vec3.xCoord += 0.03125D;
+				vec3.xCoord += this.velocityValue;
 			} break;
 		}
 

@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import ayamitsu.mobfactory.Loader;
 
 public class BlockConveyor extends Block implements IConveyor {
+
+	protected float velocityValue = 0.03125F;
 
 	public BlockConveyor(int par1, Material par2Material) {
 		super(par1, par2Material);
@@ -139,16 +141,16 @@ public class BlockConveyor extends Block implements IConveyor {
 
 		switch (stats) {
 			case NORTH_TO_SOUTH: {
-				vec3.zCoord += 0.03125D;
+				vec3.zCoord += this.velocityValue;
 			} break;
 			case EAST_TO_WEST: {
-				vec3.xCoord -= 0.03125D;
+				vec3.xCoord -= this.velocityValue;
 			} break;
 			case SOUTH_TO_NORTH: {
-				vec3.zCoord -= 0.03125D;
+				vec3.zCoord -= this.velocityValue;
 			} break;
 			case WEST_TO_EAST: {
-				vec3.xCoord += 0.03125D;
+				vec3.xCoord += this.velocityValue;
 			} break;
 		}
 

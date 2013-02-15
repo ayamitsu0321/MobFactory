@@ -1,6 +1,5 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,6 @@ public class ItemConveyorCorner extends ItemBlock {
 		boolean isActive = stack.getItemDamage() > 7;
 		boolean isLeft = yaw == 0 ? hitX > 0.5D : yaw == 1 ? hitZ > 0.5D : yaw == 2 ? hitX <= 0.5D : hitZ <= 0.5D;
 		metadata = yaw + (isLeft ? 0 : 4) + (isActive ? 8 : 0);
-		System.out.println("player corner:" + metadata);
 
 		return super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
 	}

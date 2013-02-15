@@ -25,7 +25,7 @@ public class ItemMob extends Item {
 		String mobName = itemStack.getTagCompound().getString("MobName");
 
 		if (mobName != null) {
-			list.add(StatCollector.translateToLocal(mobName));
+			list.add(StatCollector.translateToLocal("entity." + mobName + ".name"));
 		}
 	}
 

@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

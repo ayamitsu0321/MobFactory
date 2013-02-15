@@ -1,19 +1,16 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
-import java.util.List;
-
-import ayamitsu.mobfactory.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import ayamitsu.mobfactory.Loader;
 
 public class BlockConveyorCorner extends Block implements IConveyor {
+
+	protected float velocityValue = 0.03125F;
 
 	public BlockConveyorCorner(int par1, int par2, Material par3Material) {
 		super(par1, par2, par3Material);
@@ -139,58 +136,58 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 		switch (this.getConvayorStats(world, x, y, z)) {
 			case NORTH_TO_EAST : {
 				if ((1.0D - varZ) > varX) {
-					vec3.zCoord += 0.03125D;
+					vec3.zCoord += this.velocityValue;
 				} else {
-					vec3.xCoord += 0.03125D;
+					vec3.xCoord += this.velocityValue;
 				}
 			} break;
 			case EAST_TO_SOUTH: {
 				if (varZ >= varX) {
-					vec3.zCoord += 0.03125D;
+					vec3.zCoord += this.velocityValue;
 				} else {
-					vec3.xCoord -= 0.03125D;
+					vec3.xCoord -= this.velocityValue;
 				}
 			} break;
 			case SOUTH_TO_WEST: {
 				if ((1.0D - varZ) < varX) {
-					vec3.zCoord -= 0.03125D;
+					vec3.zCoord -= this.velocityValue;
 				} else {
-					vec3.xCoord -= 0.03125D;
+					vec3.xCoord -= this.velocityValue;
 				}
 			} break;
 			case WEST_TO_NORTH: {
 				if (varZ <= varX) {
-					vec3.zCoord -= 0.03125D;
+					vec3.zCoord -= this.velocityValue;
 				} else {
-					vec3.xCoord += 0.03125D;
+					vec3.xCoord += this.velocityValue;
 				}
 			} break;
 			case NORTH_TO_WEST: {
 				if (varZ < varX) {
-					vec3.zCoord += 0.03125D;
+					vec3.zCoord += this.velocityValue;
 				} else {
-					vec3.xCoord -= 0.03125D;
+					vec3.xCoord -= this.velocityValue;
 				}
 			} break;
 			case WEST_TO_SOUTH: {
 				if ((1.0D - varZ) <= varX) {
-					vec3.zCoord += 0.03125D;
+					vec3.zCoord += this.velocityValue;
 				} else {
-					vec3.xCoord += 0.03125D;
+					vec3.xCoord += this.velocityValue;
 				}
 			} break;
 			case SOUTH_TO_EAST: {
 				if (varZ > varX) {
-					vec3.zCoord -= 0.03125D;
+					vec3.zCoord -= this.velocityValue;
 				} else {
-					vec3.xCoord += 0.03125D;
+					vec3.xCoord += this.velocityValue;
 				}
 			} break;
 			case EAST_TO_NORTH: {
 				if ((1.0D - varZ) >= varX) {
-					vec3.zCoord -= 0.03125D;
+					vec3.zCoord -= this.velocityValue;
 				} else {
-					vec3.xCoord -= 0.03125D;
+					vec3.xCoord -= this.velocityValue;
 				}
 			} break;
 		}
@@ -198,33 +195,4 @@ public class BlockConveyorCorner extends Block implements IConveyor {
 		return vec3;
 	}
 
-	// not used
-	private void addMoveToEntity(Entity entity, boolean isX, double speed, double max) {
-		// x
-		if (isX) {
-			if ((max > 0.0D ? entity.motionX > max : entity.motionX < max)) {
-				entity.motionX = speed;
-				return;
-			}
-
-			entity.motionX += speed;
-
-			if ((max > 0.0D ? entity.motionX > max : entity.motionX < max)) {
-				entity.motionX = speed;
-				return;
-			}
-		} else {// z
-			if ((max > 0.0D ? entity.motionZ > max : entity.motionZ < max)) {
-				entity.motionZ = max;
-				return;
-			}
-
-			entity.motionZ += speed;
-
-			if ((max > 0.0D ? entity.motionZ > max : entity.motionZ < max)) {
-				entity.motionZ = max;
-				return;
-			}
-		}
-	}
 }

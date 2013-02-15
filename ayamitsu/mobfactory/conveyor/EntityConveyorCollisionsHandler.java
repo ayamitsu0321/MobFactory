@@ -1,14 +1,13 @@
-package ayamitsu.mobfactory.registry;
+package ayamitsu.mobfactory.conveyor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import ayamitsu.mobfactory.machine.IConveyor;
+import ayamitsu.mobfactory.registry.EntityHooks;
 import ayamitsu.mobfactory.registry.EntityHooks.HandlerType;
 import ayamitsu.mobfactory.registry.EntityHooks.IEntityHandler;
 
@@ -33,9 +32,6 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 		int maxY = MathHelper.floor_double(entity.posY - entity.yOffset - 0.001D);
 		int maxZ = MathHelper.floor_double(entity.boundingBox.maxZ - 0.001D);
 
-		int blockX = MathHelper.floor_double(entity.posX);
-		int blockY = MathHelper.floor_double(entity.posY - (double)entity.yOffset - 0.001D);
-		int blockZ = MathHelper.floor_double(entity.posZ);
 		int blockId;// = entity.worldObj.getBlockId(blockX, blockY, blockZ);
 		Block block;
 		IConveyor conveyor;

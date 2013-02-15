@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 import net.minecraft.world.IBlockAccess;
 

@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 /**
  * South:0 +z

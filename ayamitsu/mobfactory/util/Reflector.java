@@ -1,6 +1,7 @@
 package ayamitsu.mobfactory.util;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -43,6 +44,26 @@ public final class Reflector {
 
 			Constructor constructor = getConstructor(clazz, deque.toArray(new Class[0]));
 			return constructor.newInstance(arrayOfObject);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static Object getPrivateValue(Class clazz, Object instance, int index) throws RuntimeException {
+		try {
+			Field field = clazz.getDeclaredFields()[index];
+			field.setAccessible(true);
+			return field.get(instance);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static Object getPrivateValue(Class clazz, Object instance, String str) throws RuntimeException {
+		try {
+			Field field = clazz.getDeclaredField(str);
+			field.setAccessible(true);
+			return field.get(instance);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.machine;
+package ayamitsu.mobfactory.conveyor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
@@ -19,7 +19,6 @@ public interface IConveyor {
 
 	/**
 	 * if return true, call addVelocityToEntity
-	 * boundingBoxMinY and onGround is entity's stats
 	 */
 	boolean canAddVelocityToEntity(Entity entity, World world, int x, int y, int z);
 

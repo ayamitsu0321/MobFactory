@@ -4,12 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
+import ayamitsu.mobfactory.conveyor.BlockConveyor;
+import ayamitsu.mobfactory.conveyor.BlockConveyorCorner;
+import ayamitsu.mobfactory.conveyor.BlockConveyorSlope;
+import ayamitsu.mobfactory.conveyor.ItemConveyorCorner;
 import ayamitsu.mobfactory.item.ItemMob;
-import ayamitsu.mobfactory.item.ItemMobTranslator;
-import ayamitsu.mobfactory.machine.BlockConveyor;
-import ayamitsu.mobfactory.machine.BlockConveyorCorner;
-import ayamitsu.mobfactory.machine.BlockConveyorSlope;
-import ayamitsu.mobfactory.machine.ItemConveyorCorner;
+import ayamitsu.mobfactory.translator.BlockMobTranslator;
+import ayamitsu.mobfactory.translator.ItemMobTranslator;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -24,20 +25,22 @@ public final class Loader {
 	public Block conveyor;
 	public Block conveyorSlope;
 	public Block conveyorCorner;
+	public Block translatorBlock;
 
 	/** blocks IDs */
 	private int conveyorId;
 	private int conveyorSlopeId;
 	private int conveyorCornerId;
+	private int translatorBlockId;
 
 
 	/** items */
 	public Item itemMob;
-	public Item mobTranslator;
+	public Item mobTranslatorItem;
 
 	/** items IDs */
 	private int itemMobId;
-	private int mobTranslatorId;
+	private int mobTranslatorItemId;
 
 
 	/** block render ids, client only */
@@ -53,9 +56,10 @@ public final class Loader {
 		this.conveyorId = conf.getBlock("Conveyor", 1230).getInt();
 		this.conveyorSlopeId = conf.getBlock("ConveyorSlope", 1231).getInt();
 		this.conveyorCornerId = conf.getBlock("ConveyorCorner", 1232).getInt();
+		this.translatorBlockId = conf.getBlock("Translator Block", 1233).getInt();
 
 		this.itemMobId = conf.getItem("ItemMob", 12300).getInt();
-		this.mobTranslatorId = conf.getItem("MobTranslator", 12301).getInt();
+		this.mobTranslatorItemId = conf.getItem("MobTranslator", 12301).getInt();
 
 		conf.save();
 
@@ -70,16 +74,19 @@ public final class Loader {
 		GameRegistry.registerBlock(this.conveyorSlope, "mobfactory.conveyorSlope");
 		this.conveyorCorner = new BlockConveyorCorner(this.conveyorCornerId, Material.iron).setBlockName("mobfactory.conveyorCorner").setCreativeTab(MobFactory.tabMobFactory);
 		GameRegistry.registerBlock(this.conveyorCorner, ItemConveyorCorner.class, "mobfactory.conveyorCorner");
+		this.translatorBlock = new BlockMobTranslator(this.translatorBlockId, Material.iron).setBlockName("mobfactory.translatorBlock").setCreativeTab(MobFactory.tabMobFactory);
+		GameRegistry.registerBlock(this.translatorBlock, "mobfactory.translatorBlock");
 
 		this.itemMob = new ItemMob(this.itemMobId).setItemName("mobfactory.itemMob").setCreativeTab(MobFactory.tabMobFactory);
-		this.mobTranslator = new ItemMobTranslator(this.mobTranslatorId).setItemName("mobfactory.mobTranslator").setCreativeTab(MobFactory.tabMobFactory);
+		this.mobTranslatorItem = new ItemMobTranslator(this.mobTranslatorItemId).setItemName("mobfactory.mobTranslator").setCreativeTab(MobFactory.tabMobFactory);
 
 		LanguageRegistry.instance().addNameForObject(this.conveyor, "en_US", "Conveyor");
 		LanguageRegistry.instance().addNameForObject(this.conveyorSlope, "en_US", "Conveyor Slope");
 		LanguageRegistry.instance().addNameForObject(this.conveyorCorner, "en_US", "Conveyor Corner");
+		LanguageRegistry.instance().addNameForObject(this.translatorBlock, "en_US", "Translator Block");
 
 		LanguageRegistry.instance().addNameForObject(this.itemMob, "en_US", "Item Mob");
-		LanguageRegistry.instance().addNameForObject(this.mobTranslator, "en_US", "Mob Translator");
+		LanguageRegistry.instance().addNameForObject(this.mobTranslatorItem, "en_US", "Mob Translator");
 
 		// debug
 		/*GameRegistry.addRecipe(new ItemStack(this.mobTranslator),

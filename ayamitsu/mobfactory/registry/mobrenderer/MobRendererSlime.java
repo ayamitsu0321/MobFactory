@@ -15,7 +15,7 @@ import ayamitsu.mobfactory.util.Reflector;
 
 public class MobRendererSlime implements IMobRenderer {
 
-	private EntitySlime slime;
+	protected EntitySlime slime;
 
 	@Override
 	public boolean match(String name) {

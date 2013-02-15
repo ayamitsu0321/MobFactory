@@ -8,7 +8,7 @@ public class MobRendererMagmaCube extends MobRendererSlime {
 
 	@Override
 	public boolean match(String name) {
-		return name.equals("MagmaCube");
+		return name.equals("LavaSlime");
 	}
 
 	@Override
