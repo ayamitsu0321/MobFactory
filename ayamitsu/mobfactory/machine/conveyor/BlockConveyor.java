@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -73,10 +73,6 @@ public class BlockConveyor extends Block implements IConveyor {
 		int yaw = this.getDirectionFromEntityLiving(living);
 		boolean active = this.isActive(world, blockX, blockY, blockZ);//world.getBlockMetadata(blockX, blockY, blockZ) > 3;
 		world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.blockID, yaw + (active ? 4 : 0));
-
-		if (!world.isRemote) {
-			System.out.println(yaw);
-		}
 	}
 
 	public int getDirectionFromEntityLiving(EntityLiving living) {

@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
 import java.util.List;
 
@@ -245,6 +245,14 @@ public class BlockConveyorSlope extends Block implements IConveyorSlope {
 		//System.out.println("slope:" + x + ", " + y + ", " + z);
 		Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(0.0D, 0.0D, 0.0D);
 		ConveyorStats stats = this.getConvayorStats(world, x, y, z);
+
+		/*if (this.isUpStats(world, x, y, z)) {
+
+			if (!(entity instanceof EntityLiving) && entity.onGround) {
+				vec3.yCoord += 0.25D;
+				entity.onGround = false;
+			}
+		}*/
 
 		switch (stats) {
 			case NORTH_TO_SOUTH: {

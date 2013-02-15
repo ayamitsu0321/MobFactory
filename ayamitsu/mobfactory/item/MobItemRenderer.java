@@ -1,6 +1,7 @@
 package ayamitsu.mobfactory.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -32,7 +33,7 @@ public class MobItemRenderer implements IItemRenderer {
 			return false;
 		}
 
-		return itemStack.hasTagCompound() && MobRenderingRegistry.contains(itemStack.getTagCompound().getString("MobName"));
+		return itemStack.hasTagCompound() && EntityList.stringToClassMapping.containsKey(itemStack.getTagCompound().getString("MobName"));//MobRenderingRegistry.contains(itemStack.getTagCompound().getString("MobName"));
 	}
 
 	@Override

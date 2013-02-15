@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.translator;
+package ayamitsu.mobfactory.machine.translator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import ayamitsu.mobfactory.conveyor.IConveyor;
+import ayamitsu.mobfactory.machine.conveyor.IConveyor;
 import ayamitsu.mobfactory.registry.EntityHooks.HandlerType;
 import ayamitsu.mobfactory.registry.EntityHooks.IEntityHandler;
 

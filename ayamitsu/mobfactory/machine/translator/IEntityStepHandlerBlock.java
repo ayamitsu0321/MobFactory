@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.translator;
+package ayamitsu.mobfactory.machine.translator;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;

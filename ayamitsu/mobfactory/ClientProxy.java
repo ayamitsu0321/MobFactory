@@ -2,9 +2,9 @@ package ayamitsu.mobfactory;
 
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
-import ayamitsu.mobfactory.conveyor.RenderConveyor;
-import ayamitsu.mobfactory.conveyor.RenderConveyorSlope;
 import ayamitsu.mobfactory.item.MobItemRenderer;
+import ayamitsu.mobfactory.machine.conveyor.RenderConveyor;
+import ayamitsu.mobfactory.machine.conveyor.RenderConveyorSlope;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

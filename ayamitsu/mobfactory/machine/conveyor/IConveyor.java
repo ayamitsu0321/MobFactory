@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;

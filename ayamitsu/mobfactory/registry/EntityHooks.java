@@ -3,8 +3,8 @@ package ayamitsu.mobfactory.registry;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import ayamitsu.mobfactory.conveyor.EntityConveyorCollisionsHandler;
-import ayamitsu.mobfactory.translator.EntityStepHandler;
+import ayamitsu.mobfactory.machine.conveyor.EntityConveyorCollisionsHandler;
+import ayamitsu.mobfactory.machine.translator.EntityStepHandler;
 
 import net.minecraft.entity.Entity;
 

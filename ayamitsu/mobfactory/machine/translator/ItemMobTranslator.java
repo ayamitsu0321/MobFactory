@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.translator;
+package ayamitsu.mobfactory.machine.translator;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import ayamitsu.mobfactory.Loader;
 
 /**
- * catch mob and add item instance of mob into player inevntory
+ * translate mob to item
  */
 public class ItemMobTranslator extends Item {
 
@@ -38,4 +38,5 @@ public class ItemMobTranslator extends Item {
 
 		return false;
 	}
+
 }

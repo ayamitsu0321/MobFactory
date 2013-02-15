@@ -86,33 +86,6 @@ public class MobRenderingRegistry {
 		return nameList.toArray(new String[0]);
 	}
 
-	static {
-		registerRenderer("Zombie", new MobRendererNormal("Zombie", EntityZombie.class));
-		registerRenderer("Skeleton", new MobRendererNormal("Skeleton", EntitySkeleton.class));
-		registerRenderer("Creeper", new MobRendererNormal("Creeper", EntityCreeper.class));
-		registerRenderer("Spider", new MobRendererNormal("Spider", EntitySpider.class));
-		registerRenderer("CaveSpider", new MobRendererNormal("CaveSpider", EntityCaveSpider.class));
-		registerRenderer("Enderman", new MobRendererNormal("Enderman", EntityEnderman.class));
-		registerRenderer("PigZombie", new MobRendererNormal("PigZombie", EntityPigZombie.class));
-		registerRenderer("Blaze", new MobRendererNormal("Blaze", EntityBlaze.class));
-		registerRenderer("Silverfish", new MobRendererNormal("Silverfish", EntitySilverfish.class));
-		registerRenderer("Cow", new MobRendererNormal("Cow", EntityCow.class));
-		registerRenderer("MushroomCow", new MobRendererNormal("MushroomCow", EntityMooshroom.class));
-		registerRenderer("Pig", new MobRendererNormal("Pig", EntityPig.class));
-		registerRenderer("Sheep", new MobRendererNormal("Sheep", EntitySheep.class));
-		registerRenderer("Chicken", new MobRendererNormal("Chicken", EntityChicken.class));
-		registerRenderer("Wolf", new MobRendererNormal("Wolf", EntityWolf.class));
-		registerRenderer("Ozelot", new MobRendererNormal("Ozelot", EntityOcelot.class));
-		registerRenderer("Villager", new MobRendererNormal("Villager", EntityVillager.class));
-		registerRenderer("Witch", new MobRendererNormal("Witch", EntityWitch.class));
-		registerRenderer("VillagerGolem", new MobRendererNormal("VillagerGolem", EntityIronGolem.class));
-		registerRenderer("SnowMan", new MobRendererNormal("SnowMan", EntitySnowman.class));
-		registerRenderer("Ghast", new MobRendererGhast());
-		registerRenderer("Squid", new MobRendererSquid());
-		registerRenderer("Slime", new MobRendererSlime());
-		registerRenderer("LavaSlime", new MobRendererMagmaCube());
-	}
-
 	/**
 	 * implement this and register
 	 * use that renderer
@@ -179,6 +152,33 @@ public class MobRenderingRegistry {
 			return (Map)Reflector.getPrivateValue(EntityList.class, null, 0);
 		}
 
+	}
+
+	static {
+		registerRenderer("Zombie", new MobRendererNormal("Zombie", EntityZombie.class));
+		registerRenderer("Skeleton", new MobRendererNormal("Skeleton", EntitySkeleton.class));
+		registerRenderer("Creeper", new MobRendererNormal("Creeper", EntityCreeper.class));
+		registerRenderer("Spider", new MobRendererNormal("Spider", EntitySpider.class));
+		registerRenderer("CaveSpider", new MobRendererNormal("CaveSpider", EntityCaveSpider.class));
+		registerRenderer("Enderman", new MobRendererNormal("Enderman", EntityEnderman.class));
+		registerRenderer("PigZombie", new MobRendererNormal("PigZombie", EntityPigZombie.class));
+		registerRenderer("Blaze", new MobRendererNormal("Blaze", EntityBlaze.class));
+		registerRenderer("Silverfish", new MobRendererNormal("Silverfish", EntitySilverfish.class));
+		registerRenderer("Cow", new MobRendererNormal("Cow", EntityCow.class));
+		registerRenderer("MushroomCow", new MobRendererNormal("MushroomCow", EntityMooshroom.class));
+		registerRenderer("Pig", new MobRendererNormal("Pig", EntityPig.class));
+		registerRenderer("Sheep", new MobRendererNormal("Sheep", EntitySheep.class));
+		registerRenderer("Chicken", new MobRendererNormal("Chicken", EntityChicken.class));
+		registerRenderer("Wolf", new MobRendererNormal("Wolf", EntityWolf.class));
+		registerRenderer("Ozelot", new MobRendererNormal("Ozelot", EntityOcelot.class));
+		registerRenderer("Villager", new MobRendererNormal("Villager", EntityVillager.class));
+		registerRenderer("Witch", new MobRendererNormal("Witch", EntityWitch.class));
+		registerRenderer("VillagerGolem", new MobRendererNormal("VillagerGolem", EntityIronGolem.class));
+		registerRenderer("SnowMan", new MobRendererNormal("SnowMan", EntitySnowman.class));
+		registerRenderer("Ghast", new MobRendererGhast());
+		registerRenderer("Squid", new MobRendererSquid());
+		registerRenderer("Slime", new MobRendererSlime());
+		registerRenderer("LavaSlime", new MobRendererMagmaCube());
 	}
 
 }

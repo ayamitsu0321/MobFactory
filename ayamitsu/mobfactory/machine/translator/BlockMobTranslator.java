@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.translator;
+package ayamitsu.mobfactory.machine.translator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 // TODO:
@@ -13,12 +14,29 @@ public class BlockMobTranslator extends Block implements IEntityStepHandlerBlock
 
 	public BlockMobTranslator(int par1, Material par2Material) {
 		super(par1, par2Material);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+		Block.useNeighborBrightness[par1] = true;
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
 	}
 
 	public BlockMobTranslator(int par1, int par2, Material par3Material) {
 		super(par1, par2, par3Material);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+		Block.useNeighborBrightness[par1] = true;
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int blockX, int blockY, int blockZ) {
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
 	}
 
 	@Override

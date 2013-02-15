@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class EntityConveyorCollisionsHandler implements IEntityHandler {
 		int minY = MathHelper.floor_double(entity.posY - (double)entity.yOffset + 0.001D - 1D);
 		int minZ = MathHelper.floor_double(entity.boundingBox.minZ + 0.001D);
 		int maxX = MathHelper.floor_double(entity.boundingBox.maxX - 0.001D);
-		int maxY = MathHelper.floor_double(entity.posY - entity.yOffset - 0.001D);
+		int maxY = MathHelper.floor_double(entity.posY - (double)entity.yOffset - 0.001D);
 		int maxZ = MathHelper.floor_double(entity.boundingBox.maxZ - 0.001D);
 
 		int blockId;// = entity.worldObj.getBlockId(blockX, blockY, blockZ);

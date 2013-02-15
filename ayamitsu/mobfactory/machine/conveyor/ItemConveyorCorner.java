@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;

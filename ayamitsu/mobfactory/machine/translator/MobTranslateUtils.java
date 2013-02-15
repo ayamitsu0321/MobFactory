@@ -1,4 +1,4 @@
-package ayamitsu.mobfactory.translator;
+package ayamitsu.mobfactory.machine.translator;
 
 import java.lang.reflect.Constructor;
 
@@ -69,4 +69,5 @@ public final class MobTranslateUtils {
 
 		return null;
 	}
+
 }

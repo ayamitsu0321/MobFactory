@@ -1,6 +1,6 @@
-package ayamitsu.mobfactory.conveyor;
+package ayamitsu.mobfactory.machine.conveyor;
 
-import static ayamitsu.mobfactory.conveyor.ConveyorStats.*;
+import static ayamitsu.mobfactory.machine.conveyor.ConveyorStats.*;
 
 public final class ConveyorUtils {
 
